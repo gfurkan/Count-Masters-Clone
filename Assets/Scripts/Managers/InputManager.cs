@@ -39,7 +39,7 @@ public class InputManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
     public bool dragging => _dragging;
 
     public Vector3 touchFirstPos => _touchFirstPos;
-    public Vector3 touchNetPos => _touchNextPos;
+    public Vector3 touchNextPos => _touchNextPos;
     public Vector3 directionVec => _directionVec;
 
     #endregion
