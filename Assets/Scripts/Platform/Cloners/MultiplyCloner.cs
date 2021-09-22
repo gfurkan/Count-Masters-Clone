@@ -31,6 +31,7 @@ namespace Cloner
                         character.GetComponent<PlayerCharactersMovement>().enabled = true;
                         character.transform.position = new Vector3(firstPlayerCharacter.transform.position.x + Random.Range(-0.5f, 0.5f), firstPlayerCharacter.transform.position.y, firstPlayerCharacter.transform.position.z + Random.Range(-0.5f, 0.5f));
                         character.GetComponent<Rigidbody>().useGravity = true;
+                        character.transform.parent = other.transform.parent;
                     }
 
                 }

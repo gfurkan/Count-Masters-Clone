@@ -44,7 +44,6 @@ namespace Cloner
         }
         void Start()
         {
-            _playerPool.Enqueue(transform.GetChild(0).gameObject);
             for (int i = 0; i < poolSize; i++)
             {
                 var player = Instantiate(playerPrefab, new Vector3(0, 0, -20), Quaternion.identity, transform);

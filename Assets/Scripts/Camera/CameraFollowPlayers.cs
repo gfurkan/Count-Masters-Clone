@@ -4,14 +4,25 @@ using UnityEngine;
 
 public class CameraFollowPlayers : MonoBehaviour
 {
+    private GameObject firstActivePlayerCharacter;
+    private Vector3 distance;
 
-    void Start()
+
+    void LateUpdate()
     {
-        
+        if (firstActivePlayerCharacter==null)
+        {
+            GetDistance();
+        }
+        if (firstActivePlayerCharacter != null)
+        {
+            transform.position = firstActivePlayerCharacter.transform.position + distance;
+        }
+
     }
-
-    void Update()
+    void GetDistance()
     {
-        
+        firstActivePlayerCharacter = GameObject.FindGameObjectWithTag("ActivePlayers").transform.GetChild(0).gameObject;
+        distance = transform.position - firstActivePlayerCharacter.transform.position;
     }
 }
