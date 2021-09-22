@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerCharacterProperties : ScriptableObject
 {
     [SerializeField]
-    private float _zAxisSpeed = 0,_checkSphereRadius=0, _playerDragValue = 0;
+    private float _zAxisSpeed = 0, _playerDragValue = 0;
 
     public float zAxisSpeed
     {
@@ -19,7 +19,6 @@ public class PlayerCharacterProperties : ScriptableObject
             _zAxisSpeed = value;
         }
     }
-    public float checkSphereRadius => _checkSphereRadius;
     public float playerDragValue => _playerDragValue;
 }
 

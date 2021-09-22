@@ -12,6 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88e3f44432c6b6241a36126a0e9079a1, type: 3}
   m_Name: Player Type1
   m_EditorClassIdentifier: 
-  _zAxisSpeed: 2
-  _checkSphereRadius: 1
-  _playerDragValue: 1.5
+  _zAxisSpeed: 4
+  _playerDragValue: 1

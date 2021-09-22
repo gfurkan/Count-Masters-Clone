@@ -21,7 +21,7 @@ public class PlayerCloning : MonoBehaviour
             }
             if (transform.tag == "MultiplyCloner")
             {
-                int cloneCount = clonerValue - 1 * other.transform.parent.transform.childCount;
+                int cloneCount = (clonerValue - 1) * other.transform.parent.transform.childCount;
                 ClonePlayer(cloneCount, other.gameObject);
             }
 
