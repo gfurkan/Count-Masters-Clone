@@ -8,6 +8,9 @@ TagManager:
   - ReplayButton
   - PlusCloner
   - MultiplyCloner
+  - RightEdge
+  - LeftEdge
+  - PlayerCharacterPool
   layers:
   - Default
   - TransparentFX

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5014750634731473649}
   m_Layer: 0
-  m_Name: PlayerCharacters
+  m_Name: PlayerCharacterPool
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38,6 +38,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5014750634731473649}
     m_Modifications:
+    - target: {fileID: 851661897907031236, guid: 129adcdd35b952d498b82dd0a2d2f160, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7517825840663175749, guid: 129adcdd35b952d498b82dd0a2d2f160, type: 3}
       propertyPath: m_RootOrder
       value: 0

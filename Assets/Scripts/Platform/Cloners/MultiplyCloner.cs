@@ -2,30 +2,42 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MultiplyCloner : MonoBehaviour
+
+namespace Cloner
 {
-    [SerializeField]
-    private GameObject playerPrefab, besideCloner;
-    [SerializeField]
-    private int clonerValue;
-
-    private void OnTriggerEnter(Collider other)
+    public class MultiplyCloner : MonoBehaviour
     {
-        if (other.gameObject.tag == "Player")
+        [SerializeField]
+        private GameObject besideCloner;
+        [SerializeField]
+        private int clonerValue;
+
+        private void OnTriggerEnter(Collider other)
         {
-            Destroy(besideCloner.GetComponent<Collider>());
+            if (other.gameObject.tag == "Player")
+            {
+                PlayerCharacterPool playerCharacterPool = PlayerCharacterPool.Instance;
+                var pool = playerCharacterPool.playerPool;
+                GameObject firstPlayerCharacter = other.transform.parent.transform.GetChild(0).gameObject;
 
-            int cloneCount = (clonerValue - 1) * other.transform.parent.transform.childCount;
-            ClonePlayer(cloneCount, other.gameObject);
+                Destroy(besideCloner.GetComponent<Collider>());
 
-            Destroy(transform.GetComponent<Collider>());
+                int cloneCount = (clonerValue - 1) * other.transform.parent.transform.childCount;
+                for (int i = 0; i < clonerValue; i++)
+                {
+                    if (pool.Count != 0)
+                    {
+                        GameObject character = pool.Dequeue();
+                        character.GetComponent<PlayerCharactersMovement>().enabled = true;
+                        character.transform.position = new Vector3(firstPlayerCharacter.transform.position.x + Random.Range(-0.5f, 0.5f), firstPlayerCharacter.transform.position.y, firstPlayerCharacter.transform.position.z + Random.Range(-0.5f, 0.5f));
+                        character.GetComponent<Rigidbody>().useGravity = true;
+                    }
+
+                }
+
+                Destroy(transform.GetComponent<Collider>());
+            }
         }
     }
-    void ClonePlayer(int cloneCount, GameObject colliderObject)
-    {
-        for (int i = 0; i < cloneCount; i++)
-        {
-            Instantiate(playerPrefab, new Vector3(colliderObject.transform.position.x + Random.Range(-0.5f, 0.5f), colliderObject.transform.position.y, colliderObject.transform.position.z + Random.Range(-0.5f, 0.5f)), Quaternion.identity, colliderObject.transform.parent);
-        }
-    }
+
 }

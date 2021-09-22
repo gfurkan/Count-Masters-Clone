@@ -24,7 +24,7 @@ public class PlayerCloning : MonoBehaviour
                 int cloneCount = (clonerValue - 1) * other.transform.parent.transform.childCount;
                 ClonePlayer(cloneCount, other.gameObject);
             }
-
+            
             Destroy(transform.GetComponent<Collider>());
         }
     }
