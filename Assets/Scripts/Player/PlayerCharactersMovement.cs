@@ -8,37 +8,45 @@ public class PlayerCharactersMovement : MonoBehaviour
     [SerializeField]
     private PlayerCharacterProperties playerCharacterProperties;
 
-    private static bool figtBegin = false, disableDraggingLeft = false,disableDraggingRight=false;
+    private static bool figtBegin = false, disableDraggingLeft = false,disableDraggingRight=false,startRunning=false;
 
     InputManager inputManager;
     NavMeshAgent agent;
     Rigidbody rb;
+    Animator animator;
 
     void Start()
     {
         inputManager = InputManager.Instance;
         rb = GetComponent<Rigidbody>();
+
     }
 
     void Update()
     {
-        Movement();
+        if (inputManager.clicked)
+        {
+            startRunning = true;
+        }
+        if (startRunning)
+        {
+            Movement();
+        }
     }
     void Movement()
     {
-        if (!figtBegin)
+        for(int i = 0; i< transform.childCount; i++)
         {
-            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, playerCharacterProperties.zAxisSpeed);
+            animator =transform.GetChild(i).GetComponent<Animator>();
+            animator.SetBool("Run", true);
         }
-        if (figtBegin)
-        {
-            agent.enabled = true;
-        }
+
+        rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, playerCharacterProperties.zAxisSpeed);
         if (inputManager.dragging) 
         {
             if (inputManager.directionVec.x > 0)
             {
-                if (!disableDraggingRight)
+                if (!disableDraggingRight) 
                 {
                     transform.position = new Vector3(transform.position.x + inputManager.directionVec.x * playerCharacterProperties.playerDragValue * Time.deltaTime, transform.position.y, transform.position.z);
                 }

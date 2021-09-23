@@ -12,6 +12,7 @@ TagManager:
   - LeftEdge
   - PlayerCharacterPool
   - ActivePlayers
+  - Enemy
   layers:
   - Default
   - TransparentFX

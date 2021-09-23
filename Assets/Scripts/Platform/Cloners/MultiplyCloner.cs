@@ -28,12 +28,10 @@ namespace Cloner
                     if (pool.Count != 0)
                     {
                         GameObject character = pool.Dequeue();
-                        character.GetComponent<PlayerCharactersMovement>().enabled = true;
-                        character.transform.position = new Vector3(firstPlayerCharacter.transform.position.x + Random.Range(-0.5f, 0.5f), firstPlayerCharacter.transform.position.y, firstPlayerCharacter.transform.position.z + Random.Range(-0.5f, 0.5f));
+                        character.transform.position = new Vector3(firstPlayerCharacter.transform.position.x + Random.Range(-0.25f, 0.25f), firstPlayerCharacter.transform.position.y, firstPlayerCharacter.transform.position.z + Random.Range(-0.25f, 0.25f));
                         character.GetComponent<Rigidbody>().useGravity = true;
                         character.transform.parent = other.transform.parent;
                     }
-
                 }
 
                 Destroy(transform.GetComponent<Collider>());
