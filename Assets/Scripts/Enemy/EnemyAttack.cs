@@ -11,7 +11,7 @@ public class EnemyAttack : MonoBehaviour
 
     private void Update()
     {
-        if (group.transform.childCount == 0)
+        if (group.transform.childCount-1 == 0)
         {
             playerDied = true;
         }
@@ -44,7 +44,7 @@ public class EnemyAttack : MonoBehaviour
     }
    public void GoToPlayerGroup(GameObject group,float speed,Vector3 groupPosition)
     {
-        transform.DOMove(groupPosition, speed);
+        transform.position = Vector3.MoveTowards(transform.position, groupPosition, speed * Time.deltaTime);
         this.group = group;
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using DG.Tweening;
 using TMPro;
+using UnityEngine.UI;
 
 public class PlayerCharactersMovement : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class PlayerCharactersMovement : MonoBehaviour
     private float fightMovementSpeed = 0;
     [SerializeField]
     private TextMeshProUGUI groupSizeText;
+    [SerializeField]
+    private Image groupSizeImage;
 
     private bool _disableDraggingLeft = false, _disableDraggingRight = false, startRunning = false, fightBegin = false;
 
@@ -119,7 +122,7 @@ public class PlayerCharactersMovement : MonoBehaviour
     void GoToEnemiesLocation(GameObject group,Vector3 groupPosition)
     {
         rb.velocity = Vector3.zero;
-        transform.DOMove(groupPosition, fightMovementSpeed);
+        transform.position = Vector3.MoveTowards(transform.position, groupPosition, fightMovementSpeed * Time.deltaTime);
       
         if (group.transform.childCount-1 == 0)
         {
@@ -141,7 +144,7 @@ public class PlayerCharactersMovement : MonoBehaviour
         groupSizeText.text = (transform.childCount - 1).ToString();
         if (transform.childCount - 1 == 0)
         {
-            groupSizeText.GetComponent<CanvasGroup>().DOFade(0, 0.25f);
+            groupSizeImage.GetComponent<CanvasGroup>().DOFade(0, 0.25f);
         }
     }
 }
