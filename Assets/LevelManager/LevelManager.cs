@@ -90,6 +90,8 @@ public class LevelManager : MonoBehaviour
         {
             currentLevelIndex = 0;
         }
+
+        nextLevel.GetComponent<CanvasGroup>().blocksRaycasts = false;
         LevelCreate();
         
     }
@@ -99,7 +101,8 @@ public class LevelManager : MonoBehaviour
         levelFail = false;
         replay.GetComponent<CanvasGroup>().alpha = 0;
         replay.interactable = false;
-        
+
+        replay.GetComponent<CanvasGroup>().blocksRaycasts = false;
         LevelCreate();
     }
 
@@ -125,6 +128,7 @@ public class LevelManager : MonoBehaviour
         if (replay.GetComponent<CanvasGroup>().alpha >= 0.5f)
         {
             replay.GetComponent<Button>().interactable = true;
+            replay.GetComponent<CanvasGroup>().blocksRaycasts = true;
         }
     }
    void NextLevelButtonVisibility()
@@ -134,6 +138,7 @@ public class LevelManager : MonoBehaviour
             if (nextLevel.GetComponent<CanvasGroup>().alpha >= 0.5f)
             {
                 nextLevel.GetComponent<Button>().interactable = true;
+                nextLevel.GetComponent<CanvasGroup>().blocksRaycasts = true;
             }
     }
     #endregion

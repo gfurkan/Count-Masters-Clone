@@ -2,13 +2,45 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using DG.Tweening;
+using TMPro;
 
 public class PlayerCharactersMovement : MonoBehaviour
 {
     [SerializeField]
     private PlayerCharacterProperties playerCharacterProperties;
+    [SerializeField]
+    private float fightMovementSpeed = 0;
+    [SerializeField]
+    private TextMeshProUGUI groupSizeText;
 
-    private static bool figtBegin = false, disableDraggingLeft = false,disableDraggingRight=false,startRunning=false;
+    private bool _disableDraggingLeft = false, _disableDraggingRight = false, startRunning = false, fightBegin = false;
+
+    public bool disableDraggingLeft
+    {
+        get
+        {
+            return _disableDraggingLeft;
+        }
+        set
+        {
+            _disableDraggingLeft = value;
+        }
+    }
+    public bool disableDraggingRight
+    {
+        get
+        {
+            return _disableDraggingRight;
+        }
+        set
+        {
+            _disableDraggingRight = value;
+        }
+    }
+
+    private GameObject group;
+    private Vector3 groupPosition;
 
     InputManager inputManager;
     NavMeshAgent agent;
@@ -19,34 +51,58 @@ public class PlayerCharactersMovement : MonoBehaviour
     {
         inputManager = InputManager.Instance;
         rb = GetComponent<Rigidbody>();
-
     }
 
     void Update()
     {
+        StickingTogether();
+        GroupSizeTextControls();
+
         if (inputManager.clicked)
         {
             startRunning = true;
         }
         if (startRunning)
         {
-            Movement();
+            for (int i = 1; i < transform.childCount; i++)
+            {
+                animator = transform.GetChild(i).GetComponent<Animator>();
+                animator.SetBool("Run", true);
+            }
+            if (!fightBegin)
+            {
+                Movement();
+            }
+
+        }
+        if (fightBegin)
+        {
+            GoToEnemiesLocation(group,groupPosition);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.transform.tag == "EnemyGroup")
+        {
+            other.transform.GetComponent<Collider>().enabled = false;
+            group = other.gameObject;
+            groupPosition = other.transform.position;
+
+            group.GetComponent<EnemyAttack>().enabled = true;
+            group.GetComponent<EnemyAttack>().GoToPlayerGroup(transform.gameObject,fightMovementSpeed,transform.position);
+
+            fightBegin = true;
         }
     }
     void Movement()
     {
-        for(int i = 0; i< transform.childCount; i++)
-        {
-            animator =transform.GetChild(i).GetComponent<Animator>();
-            animator.SetBool("Run", true);
-        }
-
         rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, playerCharacterProperties.zAxisSpeed);
-        if (inputManager.dragging) 
+        if (inputManager.dragging)
         {
             if (inputManager.directionVec.x > 0)
             {
-                if (!disableDraggingRight) 
+                if (!disableDraggingRight)
                 {
                     transform.position = new Vector3(transform.position.x + inputManager.directionVec.x * playerCharacterProperties.playerDragValue * Time.deltaTime, transform.position.y, transform.position.z);
                 }
@@ -60,28 +116,32 @@ public class PlayerCharactersMovement : MonoBehaviour
             }
         }
     }
-    private void OnTriggerEnter(Collider other)
+    void GoToEnemiesLocation(GameObject group,Vector3 groupPosition)
     {
-        if(other.gameObject.tag=="RightEdge")
+        rb.velocity = Vector3.zero;
+        transform.DOMove(groupPosition, fightMovementSpeed);
+      
+        if (group.transform.childCount-1 == 0)
         {
-            disableDraggingRight = true;
-        }
-        if (other.gameObject.tag == "LeftEdge")
-        {
-            disableDraggingLeft = true;
+            group.SetActive(false);
+            fightBegin = false;
         }
     }
-    private void OnTriggerExit(Collider other)
+    void StickingTogether()
     {
+        for (int i = 1; i < transform.childCount; i++)
         {
-            if (other.gameObject.tag == "RightEdge")
-            {
-                disableDraggingRight = false;
-            }
-            if (other.gameObject.tag == "LeftEdge")
-            {
-                disableDraggingLeft = false;
-            }
+            agent = transform.GetChild(i).GetComponent<NavMeshAgent>();
+            agent.SetDestination(transform.position);
+        }
+
+    }
+    void GroupSizeTextControls()
+    {
+        groupSizeText.text = (transform.childCount - 1).ToString();
+        if (transform.childCount - 1 == 0)
+        {
+            groupSizeText.GetComponent<CanvasGroup>().DOFade(0, 0.25f);
         }
     }
 }

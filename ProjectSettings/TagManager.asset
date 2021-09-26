@@ -13,6 +13,7 @@ TagManager:
   - PlayerCharacterPool
   - ActivePlayers
   - Enemy
+  - EnemyGroup
   layers:
   - Default
   - TransparentFX
