@@ -12,7 +12,6 @@ public class PlayerCombat : MonoBehaviour
         {
             transform.GetComponent<Collider>().enabled = false;
             Destroy(other.gameObject);
-            //other.transform.GetComponent<Collider>().enabled = false;
             transform.GetComponent<NavMeshAgent>().enabled = false;
             
             transform.position = new Vector3(0, 0, -20);

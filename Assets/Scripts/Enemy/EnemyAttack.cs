@@ -24,7 +24,6 @@ public class EnemyAttack : MonoBehaviour
                 Animator animator = transform.GetChild(i).GetComponent<Animator>();
 
                 animator.SetBool("Run", true);
-
                 agent.SetDestination(transform.position);
             }
         }
@@ -37,8 +36,6 @@ public class EnemyAttack : MonoBehaviour
 
                 animator.SetBool("Run", false);
                 animator.SetBool("Idle", true);
-
-                LevelManager.Instance.LevelFailed();
             }
         }
     }

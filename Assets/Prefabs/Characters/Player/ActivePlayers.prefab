@@ -246,6 +246,7 @@ GameObject:
   - component: {fileID: 1393573629}
   - component: {fileID: 1393573630}
   - component: {fileID: 1393573628}
+  - component: {fileID: -2939242870349224798}
   m_Layer: 0
   m_Name: ActivePlayers
   m_TagString: ActivePlayers
@@ -314,6 +315,21 @@ MonoBehaviour:
   fightMovementSpeed: 5
   groupSizeText: {fileID: 7504436173334154278}
   groupSizeImage: {fileID: 4373149405577430465}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 128
+--- !u!114 &-2939242870349224798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5146481622004948623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bd6ee5be50178d4ea39e2105a27577a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5746651444817925845
 GameObject:
   m_ObjectHideFlags: 0

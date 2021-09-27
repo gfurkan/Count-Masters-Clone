@@ -16,8 +16,10 @@ public class PlayerCharactersMovement : MonoBehaviour
     private TextMeshProUGUI groupSizeText;
     [SerializeField]
     private Image groupSizeImage;
+    [SerializeField]
+    private LayerMask layerMask;
 
-    private bool _disableDraggingLeft = false, _disableDraggingRight = false, startRunning = false, fightBegin = false;
+    private bool _disableDraggingLeft = false, _disableDraggingRight = false, startRunning = false, fightBegin = false,enteredmovingRoad=false;
 
     public bool disableDraggingLeft
     {
@@ -58,7 +60,11 @@ public class PlayerCharactersMovement : MonoBehaviour
 
     void Update()
     {
-        StickingTogether();
+        if (!enteredmovingRoad)
+        {
+            StickingTogether();
+        }
+
         GroupSizeTextControls();
 
         if (inputManager.clicked)
@@ -93,10 +99,31 @@ public class PlayerCharactersMovement : MonoBehaviour
             groupPosition = other.transform.position;
 
             group.GetComponent<EnemyAttack>().enabled = true;
-            group.GetComponent<EnemyAttack>().GoToPlayerGroup(transform.gameObject,fightMovementSpeed,transform.position);
-
             fightBegin = true;
         }
+        #region Moving Road Check
+        if (other.gameObject.tag == "MovingRoad" || other.gameObject.tag == "KillZone")
+        {
+            enteredmovingRoad = true;
+            for (int i = 1; i < transform.childCount; i++)
+            {
+                transform.GetChild(i).GetComponent<NavMeshAgent>().enabled = false;
+                transform.GetChild(i).GetComponent<CheckRoadBelow>().enabled = true;
+            }
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "MovingRoad" || other.gameObject.tag == "KillZone")
+        {
+            enteredmovingRoad = false;
+            for (int i = 1; i < transform.childCount; i++)
+            {
+                transform.GetChild(i).GetComponent<NavMeshAgent>().enabled = true;
+                transform.GetChild(i).GetComponent<CheckRoadBelow>().enabled = false;
+            }
+        }
+        #endregion
     }
     void Movement()
     {
@@ -123,7 +150,8 @@ public class PlayerCharactersMovement : MonoBehaviour
     {
         rb.velocity = Vector3.zero;
         transform.position = Vector3.MoveTowards(transform.position, groupPosition, fightMovementSpeed * Time.deltaTime);
-      
+        group.GetComponent<EnemyAttack>().GoToPlayerGroup(transform.gameObject, fightMovementSpeed, transform.position);
+
         if (group.transform.childCount-1 == 0)
         {
             group.SetActive(false);

@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace Cloner
-{
     public class PlayerCharacterPool : MonoBehaviour
     {
         #region Singleton
@@ -52,4 +50,3 @@ namespace Cloner
         }
     }
 
-}
