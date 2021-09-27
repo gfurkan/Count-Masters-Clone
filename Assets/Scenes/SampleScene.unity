@@ -430,56 +430,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 508128214974394237, guid: 79278a3fc18636d4fb9d6056a0035b9d, type: 3}
       propertyPath: levels.Array.size
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 508128214974394237, guid: 79278a3fc18636d4fb9d6056a0035b9d, type: 3}
       propertyPath: levels.Array.data[0]
       value: 
-      objectReference: {fileID: 358034840323714326, guid: 41ef58ad3bb4c8e478156715a1b8acc3, type: 3}
+      objectReference: {fileID: 8687363976460573312, guid: d7d0f086eebeb794499f8f4fecadd65b, type: 3}
+    - target: {fileID: 508128214974394237, guid: 79278a3fc18636d4fb9d6056a0035b9d, type: 3}
+      propertyPath: levels.Array.data[1]
+      value: 
+      objectReference: {fileID: 6647690304647008321, guid: 41ef58ad3bb4c8e478156715a1b8acc3, type: 3}
+    - target: {fileID: 508128214974394237, guid: 79278a3fc18636d4fb9d6056a0035b9d, type: 3}
+      propertyPath: levels.Array.data[2]
+      value: 
+      objectReference: {fileID: 7081694556694981106, guid: fdc9425a6d995d74ca258a06e5a485dc, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 79278a3fc18636d4fb9d6056a0035b9d, type: 3}
---- !u!114 &2889142174663045672
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2889142175743326595}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d551298403593c04c9931f9bd3d73417, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 7517825840663281253, guid: 129adcdd35b952d498b82dd0a2d2f160, type: 3}
-  poolSize: 200
---- !u!4 &2889142175743326592
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2889142175743326595}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -20}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2889142175743326595
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2889142175743326592}
-  - component: {fileID: 2889142174663045672}
-  m_Layer: 0
-  m_Name: PlayerCharacterPool
-  m_TagString: PlayerCharacterPool
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1

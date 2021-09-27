@@ -11,9 +11,11 @@ namespace Cloner
         [SerializeField]
         private TextMeshProUGUI clonerText;
         [SerializeField]
-        private GameObject besideCloner;
+        private GameObject besideCloner,playerPrefab;
         [SerializeField]
         private int clonerValue;
+
+        private int cloneTime = 0;
 
         private void Start()
         {
@@ -23,25 +25,17 @@ namespace Cloner
         {
             if (other.gameObject.tag == "Player")
             {
+                cloneTime++;
                 clonerText.GetComponent<CanvasGroup>().DOFade(0, 0.5f);
-                PlayerCharacterPool playerCharacterPool = PlayerCharacterPool.Instance;
-                var pool = playerCharacterPool.playerPool;
-                GameObject firstPlayerCharacter = other.transform.parent.transform.GetChild(0).gameObject;
-
                 Destroy(besideCloner.GetComponent<Collider>());
 
-                for (int i = 0; i < clonerValue; i++)
+                if (cloneTime == 1)
                 {
-                    if (pool.Count != 0)
+                    for (int i = 0; i < clonerValue; i++)
                     {
-                        GameObject character = pool.Dequeue();
-                        character.transform.position = new Vector3(firstPlayerCharacter.transform.parent.transform.position.x + Random.Range(-0.25f, 0.25f), firstPlayerCharacter.transform.parent.transform.position.y, firstPlayerCharacter.transform.parent.transform.position.z + Random.Range(-0.5f, -0.25f));
-                        character.GetComponent<Rigidbody>().useGravity = true;
-                        character.transform.parent = other.transform.parent;
+                        Instantiate(playerPrefab, new Vector3(other.transform.parent.transform.position.x + Random.Range(-0.25f, 0.25f), other.transform.parent.transform.position.y, other.transform.parent.transform.position.z + Random.Range(-0.5f, -0.25f)), Quaternion.identity, other.transform.parent);
                     }
-
                 }
-
                 Destroy(transform.GetComponent<Collider>());
             }
         }

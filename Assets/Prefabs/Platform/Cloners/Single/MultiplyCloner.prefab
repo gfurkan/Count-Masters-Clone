@@ -583,5 +583,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clonerText: {fileID: 2295905973775950659}
+  playerPrefab: {fileID: 7517825840663281253, guid: 129adcdd35b952d498b82dd0a2d2f160, type: 3}
   besideCloner: {fileID: 0}
   clonerValue: 0

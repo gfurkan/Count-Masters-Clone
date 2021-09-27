@@ -34,6 +34,7 @@ public class EnemyAttack : MonoBehaviour
                 NavMeshAgent agent = transform.GetChild(i).GetComponent<NavMeshAgent>();
                 Animator animator = transform.GetChild(i).GetComponent<Animator>();
 
+                agent.SetDestination(transform.GetChild(i).transform.position);
                 animator.SetBool("Run", false);
                 animator.SetBool("Idle", true);
             }

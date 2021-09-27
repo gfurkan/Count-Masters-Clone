@@ -4,29 +4,24 @@ using UnityEngine;
 
 public class LevelEndControl : MonoBehaviour
 {
-    private bool lineUpCharacters = false;
-    private GameObject players;
-
+    [SerializeField]
+    private GameObject playerGroup;
     private void Update()
     {
-        if (lineUpCharacters)
+        if (playerGroup.transform.childCount == 1)
         {
-            LineUpCharacters();
+            playerGroup.GetComponent<PlayerCharactersMovement>().enabled = false;
+            playerGroup.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            LevelManager.Instance.LevelFailed();
         }
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "ActivePlayers")
+        if (other.gameObject.tag == "Player")
         {
-            players = other.gameObject;
-            other.GetComponent<PlayerCharactersMovement>().enabled = false;
-            lineUpCharacters = true;
-            other.GetComponent<Collider>().enabled = false;
+            playerGroup.GetComponent<PlayerCharactersMovement>().enabled = false;
+            playerGroup.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            LevelManager.Instance.LevelCompleted();
         }
-    }
-
-    void LineUpCharacters()
-    {
-
     }
 }

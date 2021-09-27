@@ -19,7 +19,7 @@ public class PlayerCharactersMovement : MonoBehaviour
     [SerializeField]
     private LayerMask layerMask;
 
-    private bool _disableDraggingLeft = false, _disableDraggingRight = false, startRunning = false, fightBegin = false,enteredmovingRoad=false;
+    private bool _disableDraggingLeft = false, _disableDraggingRight = false, startRunning = false, fightBegin = false;
 
     public bool disableDraggingLeft
     {
@@ -60,11 +60,8 @@ public class PlayerCharactersMovement : MonoBehaviour
 
     void Update()
     {
-        if (!enteredmovingRoad)
-        {
-            StickingTogether();
-        }
 
+        StickingTogether();
         GroupSizeTextControls();
 
         if (inputManager.clicked)
@@ -80,7 +77,7 @@ public class PlayerCharactersMovement : MonoBehaviour
             }
             if (!fightBegin)
             {
-                Movement();
+                NormalMovement();
             }
 
         }
@@ -101,31 +98,9 @@ public class PlayerCharactersMovement : MonoBehaviour
             group.GetComponent<EnemyAttack>().enabled = true;
             fightBegin = true;
         }
-        #region Moving Road Check
-        if (other.gameObject.tag == "MovingRoad" || other.gameObject.tag == "KillZone")
-        {
-            enteredmovingRoad = true;
-            for (int i = 1; i < transform.childCount; i++)
-            {
-                transform.GetChild(i).GetComponent<NavMeshAgent>().enabled = false;
-                transform.GetChild(i).GetComponent<CheckRoadBelow>().enabled = true;
-            }
-        }
     }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.tag == "MovingRoad" || other.gameObject.tag == "KillZone")
-        {
-            enteredmovingRoad = false;
-            for (int i = 1; i < transform.childCount; i++)
-            {
-                transform.GetChild(i).GetComponent<NavMeshAgent>().enabled = true;
-                transform.GetChild(i).GetComponent<CheckRoadBelow>().enabled = false;
-            }
-        }
-        #endregion
-    }
-    void Movement()
+
+    void NormalMovement()
     {
         rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, playerCharacterProperties.zAxisSpeed);
         if (inputManager.dragging)

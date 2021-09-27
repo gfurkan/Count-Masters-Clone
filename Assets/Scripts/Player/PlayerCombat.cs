@@ -11,13 +11,16 @@ public class PlayerCombat : MonoBehaviour
         if (other.gameObject.tag == "Enemy")
         {
             transform.GetComponent<Collider>().enabled = false;
+            other.transform.GetComponent<Collider>().enabled = false;
+
             Destroy(other.gameObject);
-            transform.GetComponent<NavMeshAgent>().enabled = false;
-            
-            transform.position = new Vector3(0, 0, -20);
-            transform.parent = GameObject.FindGameObjectWithTag("PlayerCharacterPool").transform;
-            other.gameObject.SetActive(false);
+            Destroy(transform.gameObject);
         }
+        if (other.gameObject.tag == "KillZone")
+        {
+            Destroy(transform.gameObject);
+        }
+
         if (other.gameObject.tag == "RightEdge")
         {
            transform.parent.GetComponent<PlayerCharactersMovement>().disableDraggingRight = true;

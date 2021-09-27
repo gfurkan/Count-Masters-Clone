@@ -14,9 +14,6 @@ public class CameraFollowPlayers : MonoBehaviour
     }
     void LateUpdate()
     {
-        if(parentPlayer.transform.childCount != 0)
-        {
-            transform.position = parentPlayer.transform.position + distance;
-        }
+        transform.position = parentPlayer.transform.position + distance;
     }
 }
